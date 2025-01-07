@@ -37,10 +37,13 @@ function load_api_key() {
     fi
 }
 
+
 function query_gemini() {
     local query="$1"
     local key_file="$HOME/.zshllm_mate_config"
     local response_file="$HOME/response.json"
+    local plugin_dir="/home/rufevean/shitbox/ZSH-LLMate" # Path to the plugin directory
+    local temp_script="$plugin_dir/.zshllm_mate_temp_script.zsh" # Temp file in plugin directory
 
     load_api_key
     local api_key="${GEMINI_API_KEY}"
@@ -56,7 +59,7 @@ function query_gemini() {
         return 1
     fi
 
-    local modified_query="You are a shell expert. Given that I'm using a $OSTYPE system, just provide the correct command . Do not include any extra explanation or details. Here's the situation: $query"
+    local modified_query="You are a shell expert. Given that I'm using a $OSTYPE system, just provide the correct command. Do not include any extra explanation or details. Here's the situation: $query"
 
     curl -s -X POST "$endpoint" \
         -H "Content-Type: application/json" \
@@ -68,14 +71,24 @@ function query_gemini() {
             }]
         }' > "$response_file"
 
-
     if [[ ! -f "$response_file" ]]; then
         echo "Error: Failed to save response."
         return 1
     fi
 
+    local extracted_text
+    extracted_text=$(jq -r '.candidates[0].content.parts[0].text' "$response_file")
 
-    local extracted_text=$(jq -r '.candidates[0].content.parts[0].text' "$response_file")
+    if [[ -n "$extracted_text" ]]; then
+        echo "#!/usr/bin/env zsh" > "$temp_script"
+        echo "$extracted_text" >> "$temp_script"
+        chmod +x "$temp_script"
+        source "$temp_script"
+        bash "$temp_script"
+        rm "$temp_script"
 
-    printf  "$extracted_text"
+    else
+        echo "Error: No valid response received from Gemini."
+        return 1
+    fi
 }

@@ -1,14 +1,14 @@
 #!/usr/bin/env zsh
 # ZSHLLM Mate Plugin
 # Description: A Zsh plugin to integrate LLM features into the terminal.
-# Author: Dheeraj  Chowdary
+# Author: Dheeraj Chowdary
 # License: MIT
 
 source /home/rufevean/shitbox/ZSH-LLMate/lib/functions.zsh
 
-function llm() {
+function vivi() {
     case $1 in
-        query)
+        ask)
             shift
             query_gemini "$@"
             ;;
@@ -22,19 +22,17 @@ function llm() {
                     echo "Usage: llm config <set-api-key>"
                     echo
                     echo "To get your Gemini API key:"
-                    echo "1. Go to the Gemini API Console: https://console.cloud.google.com/ (make sure you are logged in)"
-                    echo "2. Create a new project or select an existing project."
+                    echo "1. Go to the Gemini API Console: https://console.cloud.google.com/"
+                    echo "2. Create a project or select an existing one."
                     echo "3. Navigate to 'APIs & Services' > 'Credentials'."
-                    echo "4. Click on 'Create Credentials' and select 'API Key'."
-                    echo "5. Copy the generated API Key."
-                    echo "6. Run: 'llm config set-api-key <your-api-key>' to configure it in the plugin."
+                    echo "4. Generate an API Key and configure it using 'llm config set-api-key <your-api-key>'."
                     ;;
             esac
             ;;
         *)
             echo "Usage: llm <command> [args]"
             echo "Commands:"
-            echo "  query <text>  - Send a query to the LLM"
+            echo "  ask <text>  - Send a query to the LLM"
             echo "  config        - Configure the plugin (e.g., set API key)"
             ;;
     esac

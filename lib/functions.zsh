@@ -42,15 +42,16 @@ function query_gemini() {
     local query="$1"
     local key_file="$HOME/.zshllm_mate_config"
     local response_file="$HOME/response.json"
-    local plugin_dir="/home/rufevean/shitbox/ZSH-LLMate" # Path to the plugin directory
-    local temp_script="$plugin_dir/.zshllm_mate_temp_script.zsh" # Temp file in plugin directory
+    local plugin_dir="/home/rufevean/shitbox/ZSH-LLMate"
+    local temp_script="$plugin_dir/.zshllm_mate_temp_script.zsh"
+    local session_file="$plugin_dir/.zshllm_session" # Session context file
 
     load_api_key
     local api_key="${GEMINI_API_KEY}"
     local endpoint="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$api_key"
 
     if [[ -z "$api_key" ]]; then
-        echo "Error: Gemini API Key not configured. Run 'llm config set-api-key' first."
+        echo "Error: Gemini API Key not configured. Run 'vivi config set-api-key' first."
         return 1
     fi
 
@@ -59,7 +60,14 @@ function query_gemini() {
         return 1
     fi
 
-    local modified_query="You are a shell expert. Given that I'm using a $OSTYPE system, just provide the correct command. Do not include any extra explanation or details. Here's the situation: $query"
+    # Load session context
+    local session_context=""
+    if [[ -f "$session_file" ]]; then
+        session_context=$(<"$session_file")
+    fi
+
+    # Combine session context with user query
+    local modified_query="You are a Zsh scripting expert. I am working in a terminal with Zsh shell. Respond only with valid Zsh code that solves the following problem. Do not include any explanation, comments, or formatting like '''zsh. Just provide the raw Zsh code . Here's the context of my session:\n\n$session_context\n\nGiven that I'm using a $OSTYPE system, just provide the correct command for this situation: $query"
 
     curl -s -X POST "$endpoint" \
         -H "Content-Type: application/json" \
@@ -80,15 +88,40 @@ function query_gemini() {
     extracted_text=$(jq -r '.candidates[0].content.parts[0].text' "$response_file")
 
     if [[ -n "$extracted_text" ]]; then
+        # Append query and response to session context
+        echo "Query: $query" >> "$session_file"
+        echo "Response: $extracted_text" >> "$session_file"
+        echo "---" >> "$session_file"
+
         echo "#!/usr/bin/env zsh" > "$temp_script"
+        echo "$extracted_text"
         echo "$extracted_text" >> "$temp_script"
         chmod +x "$temp_script"
         source "$temp_script"
-        bash "$temp_script"
+        zsh "$temp_script"
         rm "$temp_script"
-
     else
         echo "Error: No valid response received from Gemini."
         return 1
+    fi
+}
+
+function view_session() {
+    local session_file="/home/rufevean/shitbox/ZSH-LLMate/.zshllm_session"
+    if [[ -f "$session_file" ]]; then
+        cat "$session_file"
+    else
+        echo "No session context found."
+    fi
+}
+
+
+function clear_session() {
+    local session_file="/home/rufevean/shitbox/ZSH-LLMate/.zshllm_session"
+    if [[ -f "$session_file" ]]; then
+        > "$session_file"
+        echo "Session context cleared."
+    else
+        echo "No session context to clear."
     fi
 }

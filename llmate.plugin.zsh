@@ -12,6 +12,19 @@ function vivi() {
             shift
             query_gemini "$@"
             ;;
+        session)
+            case $2 in
+                view)
+                    view_session
+                    ;;
+                clear)
+                    clear_session
+                    ;;
+                *)
+                    echo "Usage: vivi session <view|clear>"
+                    ;;
+            esac
+            ;;
         config)
             case $2 in
                 set-api-key)
@@ -19,21 +32,16 @@ function vivi() {
                     save_api_key "$@"
                     ;;
                 *)
-                    echo "Usage: llm config <set-api-key>"
-                    echo
-                    echo "To get your Gemini API key:"
-                    echo "1. Go to the Gemini API Console: https://console.cloud.google.com/"
-                    echo "2. Create a project or select an existing one."
-                    echo "3. Navigate to 'APIs & Services' > 'Credentials'."
-                    echo "4. Generate an API Key and configure it using 'llm config set-api-key <your-api-key>'."
+                    echo "Usage: vivi config <set-api-key>"
                     ;;
             esac
             ;;
         *)
-            echo "Usage: llm <command> [args]"
+            echo "Usage: vivi <command> [args]"
             echo "Commands:"
-            echo "  ask <text>  - Send a query to the LLM"
-            echo "  config        - Configure the plugin (e.g., set API key)"
+            echo "  ask <text>     - Send a query to the LLM"
+            echo "  session <cmd>  - Manage session context (view|clear)"
+            echo "  config <cmd>   - Configure the plugin (e.g., set API key)"
             ;;
     esac
 }

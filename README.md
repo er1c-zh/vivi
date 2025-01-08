@@ -1,6 +1,4 @@
-Here's the revised README with all features seamlessly integrated and unnecessary explanations removed:
 
----
 
 # vivi
 

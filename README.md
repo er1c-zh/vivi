@@ -38,9 +38,12 @@ fi
 
 # Step 3: Reload shell configuration
 echo "Reloading shell configuration..."
-source ~/.zshrc
 
 echo "vivi has been successfully installed and configured!"
+
+```
+``` zsh 
+source ~/.zshrc
 
 ```
 

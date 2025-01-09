@@ -37,7 +37,7 @@ function vivi() {
                     echo "1. Go to the Gemini API Console: https://console.cloud.google.com/"
                     echo "2. Create a project or select an existing one."
                     echo "3. Navigate to 'APIs & Services' > 'Credentials'."
-                    echo "4. Generate an API Key and configure it using 'llm config set-api-key <your-api-key>'."
+                    echo "4. Generate an API Key and configure it using 'vivi config set-api-key <your-api-key>'."
                     ;;
             esac
             ;;

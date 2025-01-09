@@ -94,7 +94,6 @@ function query_gemini() {
         echo "---" >> "$session_file"
 
         echo "#!/usr/bin/env zsh" > "$temp_script"
-        echo "$extracted_text"
         echo "$extracted_text" >> "$temp_script"
         chmod +x "$temp_script"
         source "$temp_script"

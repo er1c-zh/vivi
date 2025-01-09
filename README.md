@@ -10,7 +10,7 @@
 
 ```zsh
 
-#!/bin/bash
+#!/bin/zsh
 
 # Vivi Installation Script
 set -e
@@ -36,13 +36,10 @@ else
     echo "source $PLUGIN_DIR/vivi.plugin.zsh" >> ~/.zshrc
 fi
 
-# Step 3: Reload shell configuration
-echo "Reloading shell configuration..."
-
-echo "vivi has been successfully installed and configured!"
 
 ```
-``` zsh 
+**RELOAD YOUR SHELL CONFIGURATION**
+``` zsh
 source ~/.zshrc
 
 ```

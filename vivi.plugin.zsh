@@ -4,7 +4,7 @@
 # Author: Dheeraj Chowdary
 # License: MIT
 
-source /home/rufevean/shitbox/ZSH-LLMate/lib/functions.zsh
+source /home/$USER/.vivi/lib/functions.sh
 
 function vivi() {
     case $1 in

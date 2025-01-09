@@ -10,17 +10,17 @@
 
 1. Clone the repository to your local machine:
     ```bash
-    git clone https://github.com/rufevean/ZSH-LLMate.git
+    git clone https://github.com/rufevean/vivi.git
     ```
 
 2. Move the plugin directory to your Zsh plugins directory:
     ```bash
-    mv ZSHLLM-Mate ~/.oh-my-zsh/plugins/zshllm-mate
+    mv vivi ~/.oh-my-zsh/plugins/vivi
     ```
 
-3. Add `zshllm-mate` to your plugins list in `~/.zshrc`:
+3. Add `vivi` to your plugins list in `~/.zshrc`:
     ```zsh
-    plugins=(... zshllm-mate)
+    plugins=(... vivi)
     ```
 
 4. Reload your shell configuration:

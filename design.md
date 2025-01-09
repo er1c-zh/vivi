@@ -1,3 +1,3 @@
 ## TODO
 
-- [ ] ensure  that the output is converted  to input and executed in the terminal
+- [ x ] ensure  that the output is converted  to input and executed in the terminal

@@ -8,25 +8,41 @@
 
 ## Installation
 
-1. Clone the repository to your local machine:
-    ```bash
-    git clone https://github.com/rufevean/vivi.git
-    ```
+```zsh
 
-2. Move the plugin directory to your Zsh plugins directory:
-    ```bash
-    mv vivi ~/.oh-my-zsh/plugins/vivi
-    ```
+#!/bin/bash
 
-3. Add `vivi` to your plugins list in `~/.zshrc`:
-    ```zsh
-    plugins=(... vivi)
-    ```
+# Vivi Installation Script
+set -e
 
-4. Reload your shell configuration:
-    ```bash
-    source ~/.zshrc
-    ```
+PLUGIN_NAME="vivi"
+REPO_URL="https://github.com/rufevean/vivi.git"
+PLUGIN_DIR="$HOME/.vivi"
+
+# Step 1: Clone the repository
+echo "Cloning vivi repository into $PLUGIN_DIR..."
+if [ -d "$PLUGIN_DIR" ]; then
+    echo "Repository already exists at $PLUGIN_DIR. Pulling latest changes..."
+    git -C "$PLUGIN_DIR" pull
+else
+    git clone "$REPO_URL" "$PLUGIN_DIR"
+fi
+
+# Step 2: Add the plugin to .zshrc
+if grep -q "$PLUGIN_NAME" ~/.zshrc; then
+    echo "Plugin already added to .zshrc."
+else
+    echo "Adding vivi plugin to .zshrc..."
+    echo "source $PLUGIN_DIR/vivi.plugin.zsh" >> ~/.zshrc
+fi
+
+# Step 3: Reload shell configuration
+echo "Reloading shell configuration..."
+source ~/.zshrc
+
+echo "vivi has been successfully installed and configured!"
+
+```
 
 ## Configuration
 

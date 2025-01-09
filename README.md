@@ -114,7 +114,7 @@ This saves your API key for all future queries.
     - The script is executed immediately, and the temporary file is deleted to maintain a clean environment.
 
 3. **Configuration**:
-    - API keys are securely stored in `~/.zshllm_mate_config` and loaded when required.
+    - API keys are securely stored in `~/vivi_config` and loaded when required.
 
 ---
 

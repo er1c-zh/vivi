@@ -5,7 +5,6 @@
 # License: MIT
 
 source /home/$USER/.vivi/lib/functions.zsh
-
 function vivi() {
     case $1 in
         ask)

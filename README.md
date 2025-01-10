@@ -6,50 +6,47 @@
 
 **vivi** is a Zsh plugin that integrates language model (LLM) capabilities directly into your terminal. It allows you to send queries to the language model and receive AI-generated solutions, all within your terminal. The plugin supports session context and can dynamically execute received commands.
 
-## Installation
+
+
+### Installation Script
+To install vivi, run the following commands:
 
 ```zsh
-
-#!/bin/zsh
-
-# Vivi Installation Script
-set -e
-
-PLUGIN_NAME="vivi"
-REPO_URL="https://github.com/rufevean/vivi.git"
-PLUGIN_DIR="$HOME/.vivi"
-
-# Step 1: Clone the repository
-echo "Cloning vivi repository into $PLUGIN_DIR..."
-if [ -d "$PLUGIN_DIR" ]; then
-    echo "Repository already exists at $PLUGIN_DIR. Pulling latest changes..."
-    git -C "$PLUGIN_DIR" pull
-else
-    git clone "$REPO_URL" "$PLUGIN_DIR"
-fi
-
-# Step 2: Add the plugin to .zshrc
-if grep -q "$PLUGIN_NAME" ~/.zshrc; then
-    echo "Plugin already added to .zshrc."
-else
-    echo "Adding vivi plugin to .zshrc..."
-    echo "source $PLUGIN_DIR/vivi.plugin.zsh" >> ~/.zshrc
-fi
-
-
+curl -o install_vivi.zsh https://raw.githubusercontent.com/rufevean/vivi/main/install_vivi.zsh
+chmod +x install_vivi.zsh
+./install_vivi.zsh
 ```
+
+
 **RELOAD YOUR SHELL CONFIGURATION**
+
 ``` zsh
 source ~/.zshrc
 
 ```
+### Update Script
+To update vivi to the latest version, run the following commands:
 
+```zsh
+curl -o update_vivi.zsh https://raw.githubusercontent.com/rufevean/vivi/main/update_vivi.zsh
+chmod +x update_vivi.zsh
+./update_vivi.zsh
+```
+
+### Uninstallation Script
+To completely uninstall vivi, run the following commands:
+
+```zsh
+curl -o uninstall_vivi.zsh https://raw.githubusercontent.com/rufevean/vivi/main/uninstall_vivi.zsh
+chmod +x uninstall_vivi.zsh
+./uninstall_vivi.zsh
+```
 ## Configuration
 
 Before using the plugin, you'll need to configure your API key.
 
 1. Run the following command to set your Gemini API key:
-    ```zsh
+    ``` zsh
     vivi "vivi config set-api-key <your-api-key>"
     ```
 

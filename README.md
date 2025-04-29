@@ -36,7 +36,7 @@ Before using the plugin, you'll need to configure your API key.
 1. Run the following command to set your Gemini API key:
 
     ``` zsh
-    vivi "vivi config set-api-key <your-api-key>"
+    vivi config set-api-key <your-api-key>
     ```
 
 1. If you haven't obtained your Gemini API key yet, you get the key at [here](https://aistudio.google.com/app/apikey) .
@@ -54,7 +54,7 @@ vivi ask "How do I list all files in the current directory?"
 ### Example Queries
 
 ```zsh
-vivi ask"Find all files containing 'example' in this directory."
+vivi ask "Find all files containing 'example' in this directory."
 vivi ask "Create and navigate into a directory called 'projects'."
 vivi ask "Kill the process running on port 8080."
 ```

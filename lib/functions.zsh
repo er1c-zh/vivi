@@ -22,7 +22,7 @@ function save_api_key() {
 
     echo "GEMINI_API_KEY=\"$api_key\"" > "$key_file"
     chmod 600 "$key_file"
-    echo "OpenAI API Key has been saved."
+    echo "API Key has been saved."
 }
 
 
@@ -47,7 +47,7 @@ function query_gemini() {
 
     load_api_key
     local api_key="${GEMINI_API_KEY}"
-    local endpoint="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$api_key"
+    local endpoint="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key"
 
     if [[ -z "$api_key" ]]; then
         echo "Error: Gemini API Key not configured. Run 'vivi config set-api-key' first."
@@ -73,7 +73,7 @@ function query_gemini() {
         -d '{
             "contents": [{
                 "parts": [{
-                    "text": "'"$modified_query"'"
+                    "text": "'"$query"'"
                 }]
             }]
         }' > "$response_file"
@@ -91,13 +91,7 @@ function query_gemini() {
         echo "Query: $query" >> "$session_file"
         echo "Response: $extracted_text" >> "$session_file"
         echo "---" >> "$session_file"
-
-        echo "#!/usr/bin/env zsh" > "$temp_script"
-        echo "$extracted_text" >> "$temp_script"
-        chmod +x "$temp_script"
-        source "$temp_script"
-        zsh "$temp_script"
-        rm "$temp_script"
+        echo "$extracted_text"
     else
         echo "Error: No valid response received from Gemini."
         return 1

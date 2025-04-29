@@ -4,7 +4,7 @@
 # Author: Dheeraj Chowdary
 # License: MIT
 
-source /home/$USER/.vivi/lib/functions.zsh
+source $(dirname $0)/lib/functions.zsh
 function vivi() {
     case $1 in
         ask)

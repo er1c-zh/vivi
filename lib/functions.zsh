@@ -42,9 +42,8 @@ function query_gemini() {
     local query="$1"
     local key_file="$HOME/.vivi_config"
     local response_file="$HOME/response.json"
-    local plugin_dir="/home/$USER/.vivi"
-    local temp_script="$plugin_dir/.vivi_temp_script.zsh"
-    local session_file="$plugin_dir/.vivi_session" # Session context file
+    local temp_script="$HOME/.vivi_temp_script.zsh"
+    local session_file="$HOME/.vivi_session" # Session context file
 
     load_api_key
     local api_key="${GEMINI_API_KEY}"
@@ -106,7 +105,7 @@ function query_gemini() {
 }
 
 function view_session() {
-    local session_file="/home/$USER/.vivi/.vivi_session"
+    local session_file="$HOME/.vivi_session"
     if [[ -f "$session_file" ]]; then
         cat "$session_file"
     else
@@ -116,7 +115,7 @@ function view_session() {
 
 
 function clear_session() {
-    local session_file="/home/$USER/.vivi/.zshllm_session"
+    local session_file="$HOME/.vivi_session"
     if [[ -f "$session_file" ]]; then
         > "$session_file"
         echo "Session context cleared."

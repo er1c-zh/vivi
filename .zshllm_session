@@ -1,3 +1,0 @@
-Query: how to display my apps
-Response: ls -l /usr/share/applications/*.desktop
----
